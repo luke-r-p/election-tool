@@ -16,3 +16,8 @@
 .groupInput h3 {
   margin: 0;
 }
+
+.inputSettingsInput {
+  width: 5em;
+  margin-right: 1em;
+}
