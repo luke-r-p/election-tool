@@ -1,17 +1,25 @@
 import { useState } from 'react';
 import './App.css';
-import {InputSettings, InputSettingsValues} from './InputSettings'
+import {InputSettings, InputSettingsValues, updateInputSettings} from './InputSettings'
 
 // main function
 function App() {
   // contains data for the input settings
   const [inputSettingsValues, setInputSettingsValues] = useState(new InputSettingsValues(1, 0, 0));
 
+  // updates the input settings
+  function handleInputSettings() {
+    let values = updateInputSettings();
+    if (values != null) {
+      setInputSettingsValues(values);
+    }
+  }
+
   return (
     <div className="App">
       <div className='groupInput'>
         <h3>Settings:</h3>
-        <InputSettings setter={setInputSettingsValues}/>
+        <InputSettings handler={handleInputSettings}/>
         <h3>Parties:</h3>
         <p>{inputSettingsValues.seats}</p>
         <p>{inputSettingsValues.minVotes}</p>
