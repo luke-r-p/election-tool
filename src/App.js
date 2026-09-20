@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import './App.css';
 import {InputSettings, InputSettingsValues, updateInputSettings} from './InputSettings'
+import {PartyTable} from './PartyTable'
 
 // main function
 function App() {
@@ -21,9 +22,7 @@ function App() {
         <h3>Settings:</h3>
         <InputSettings handler={handleInputSettings}/>
         <h3>Parties:</h3>
-        <p>{inputSettingsValues.seats}</p>
-        <p>{inputSettingsValues.minVotes}</p>
-        <p>{inputSettingsValues.allocation}</p>
+        <PartyTable/>
       </div>
       <div id='diagramDiv'></div>
     </div>
