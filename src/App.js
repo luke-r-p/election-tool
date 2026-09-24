@@ -17,7 +17,7 @@ function App() {
   }
 
   // contains the data for all of the parties
-  const [partyData, setPartyData] = useState([new Party(0, 0, 0, 0), new Party(0, 0, 0, 0), new Party(0, 0, 0, 0)]);
+  const [partyData, setPartyData] = useState([new Party(0, 0, 0, 0, 0), new Party(0, 0, 0, 0, 0), new Party(0, 0, 0, 0, 0)]);
 
   return (
     <div className="App">
