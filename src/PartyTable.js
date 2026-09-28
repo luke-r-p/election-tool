@@ -4,7 +4,6 @@ import './PartyTable.css';
 /*
 TODO:
 - implement adding/deleting/moving rows
-- implement totals
 - implement allocation
 */
 
@@ -28,6 +27,9 @@ export function getPartyData(index) {
 // returns the table containing all of the parties
 // the size of the table is based on the size of the data provided
 export function PartyTable({data, handler}) {
+  // gets the totals for the bottom of the table
+  let [totalV, totalIn, totalF] = totals(data);
+
   return (
     <div>
       <table>
@@ -44,9 +46,9 @@ export function PartyTable({data, handler}) {
         <tr>
           <td></td>
           <td>Totals:</td>
-          <td>0</td>
-          <td>0</td>
-          <td>0</td>
+          <td>{totalV}</td>
+          <td>{totalIn}</td>
+          <td>{totalF}</td>
           <td></td>
           <td></td>
           <td></td>
@@ -75,6 +77,23 @@ function PartyTableEntry({data, handler, index}) {
         <td><button>🡓</button></td>
       </tr>
   )
+}
+
+// calculates the total number of votes, inseats, and fseats, and returns an array containing the three
+function totals(data) {
+  // variables to hold totals in
+  let v = 0; // votes
+  let i = 0; // initial seats
+  let f = 0; // final seats
+
+  // adds up the totals
+  for (let n = 0; n < data.length; n++) {
+    v += data[n].votes;
+    i += data[n].inseats;
+    f += data[n].fseats;
+  }
+
+  return [v, i, f];
 }
 
 // class containing all of the data relating to a party
