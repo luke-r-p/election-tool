@@ -3,11 +3,9 @@ import './PartyTable.css';
 
 /*
 TODO:
-- minimum values
-- remove leading 0s
+- implement adding/deleting/moving rows
 - implement totals
 - implement allocation
-- implement adding/deleting/moving rows
 */
 
 // gets the data for the party with the provided index
@@ -27,72 +25,59 @@ export function getPartyData(index) {
   }
 }
 
+// returns the table containing all of the parties
+// the size of the table is based on the size of the data provided
 export function PartyTable({data, handler}) {
   return (
-    <table>
-      <tr>
-        <th>Colour</th>
-        <th>Position</th>
-        <th>Votes</th>
-        <th>Initial Seats</th>
-        <th>Final Seats</th>
-      </tr>
-      <tr>
-        <td><input type='color' id='colour0' value={data[0].colour} onChange={() => handler(0)}/></td>
-        <td><select id='position0' value={data[0].position} onChange={() => handler(0)}>
-          <option value={0}>Opposition</option>
-          <option value={1}>Government</option>
-          <option value={2}>Cross-Bench</option>
-          </select></td>
-        <td><input type='number' id='votes0' value={data[0].votes} onChange={() => handler(0)}/></td>
-        <td><input type='number' id='inseats0' value={data[0].inseats} onChange={() => handler(0)}/></td>
-        <td id='fseats0'>{data[0].fseats}</td>
-        <td><button>X</button></td>
-        <td><button>🡑</button></td>
-        <td><button>🡓</button></td>
-      </tr>
-      <tr>
-        <td><input type='color' id='colour1' value={data[1].colour} onChange={() => handler(1)}/></td>
-        <td><select id='position1' value={data[1].position} onChange={() => handler(1)}>
-          <option value={0}>Opposition</option>
-          <option value={1}>Government</option>
-          <option value={2}>Cross-Bench</option>
-          </select></td>
-        <td><input type='number' id='votes1' value={data[1].votes} onChange={() => handler(1)}/></td>
-        <td><input type='number' id='inseats1' value={data[1].inseats} onChange={() => handler(1)}/></td>
-        <td id='fseats1'>{data[1].fseats}</td>
-        <td><button>X</button></td>
-        <td><button>🡑</button></td>
-        <td><button>🡓</button></td>
-      </tr>
-      <tr>
-        <td><input type='color' id='colour2' value={data[2].colour} onChange={() => handler(2)}/></td>
-        <td><select id='position2' value={data[2].position} onChange={() => handler(2)}>
-          <option value={0}>Opposition</option>
-          <option value={1}>Government</option>
-          <option value={2}>Cross-Bench</option>
-          </select></td>
-        <td><input type='number' id='votes2' value={data[2].votes} onChange={() => handler(2)}/></td>
-        <td><input type='number' id='inseats2' value={data[2].inseats} onChange={() => handler(2)}/></td>
-        <td id='fseats2'>{data[2].fseats}</td>
-        <td><button>X</button></td>
-        <td><button>🡑</button></td>
-        <td><button>🡓</button></td>
-      </tr>
-      <tr>
-        <td></td>
-        <td>Totals:</td>
-        <td>0</td>
-        <td>0</td>
-        <td>0</td>
-        <td></td>
-        <td></td>
-        <td></td>
-      </tr>
-    </table>
+    <div>
+      <table>
+        <tr>
+          <th>Colour</th>
+          <th>Position</th>
+          <th>Votes</th>
+          <th>Initial Seats</th>
+          <th>Final Seats</th>
+        </tr>
+        {[...Array(data.length)].map((_, i) =>
+            <PartyTableEntry data={data} handler={handler} index={i}/>
+          )}
+        <tr>
+          <td></td>
+          <td>Totals:</td>
+          <td>0</td>
+          <td>0</td>
+          <td>0</td>
+          <td></td>
+          <td></td>
+          <td></td>
+        </tr>
+      </table>
+      <button>Add Party</button>
+    </div>
   )
 }
 
+// returns a row of the party table, corresponding to the given index
+function PartyTableEntry({data, handler, index}) {
+  return (
+    <tr>
+        <td><input type='color' id={'colour' + index} value={data[index].colour} onChange={() => handler(index)}/></td>
+        <td><select id={'position' + index} value={data[index].position} onChange={() => handler(index)}>
+          <option value={0}>Opposition</option>
+          <option value={1}>Government</option>
+          <option value={2}>Cross-Bench</option>
+          </select></td>
+        <td><input type='number' id={'votes' + index} value={data[index].votes.toString()} min='0' onChange={() => handler(index)}/></td>
+        <td><input type='number' id={'inseats' + index} value={data[index].inseats.toString()} min='0' onChange={() => handler(index)}/></td>
+        <td id={'fseats' + index}>{data[index].fseats}</td>
+        <td><button>X</button></td>
+        <td><button>🡑</button></td>
+        <td><button>🡓</button></td>
+      </tr>
+  )
+}
+
+// class containing all of the data relating to a party
 export class Party {
   constructor(colour, position, votes, inseats, fseats) {
     this.colour = colour;

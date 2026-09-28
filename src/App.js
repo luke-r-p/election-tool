@@ -17,7 +17,7 @@ function App() {
   }
 
   // contains the data for all of the parties
-  const [partyData, setPartyData] = useState([new Party(0, 0, 0, 0, 0), new Party(0, 0, 0, 0, 0), new Party(0, 0, 0, 0, 0)]);
+  const [partyData, setPartyData] = useState([new Party(0, 0, 0, 0, 0), new Party(0, 0, 0, 0, 0), new Party(0, 0, 0, 0, 0), new Party(0, 0, 0, 0, 0), new Party(0, 0, 0, 0, 0)]);
 
   // gets the new data for the party with the provided index and updates the partyData state
   function handlePartyData(index) {
