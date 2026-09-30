@@ -6,7 +6,7 @@ import {PartyTable, Party, getPartyData} from './PartyTable'
 // main function
 function App() {
   // contains data for the input settings
-  const [inputSettingsValues, setInputSettingsValues] = useState(new InputSettingsValues(1, 0, 0));
+  const [inputSettingsValues, setInputSettingsValues] = useState(new InputSettingsValues(1, 0, 0, 0, false));
 
   // updates the input settings
   function handleInputSettings() {
@@ -17,7 +17,12 @@ function App() {
   }
 
   // contains the data for all of the parties
-  const [partyData, setPartyData] = useState([new Party(0, 0, 0, 0, 0), new Party(0, 0, 0, 0, 0), new Party(0, 0, 0, 0, 0), new Party(0, 0, 0, 0, 0), new Party(0, 0, 0, 0, 0)]);
+  const [partyData, setPartyData] = useState([
+    new Party('#000000', 0, 0, 0, 0),
+    new Party('#000000', 0, 0, 0, 0),
+    new Party('#000000', 0, 0, 0, 0),
+    new Party('#000000', 0, 0, 0, 0),
+    new Party('#000000', 0, 0, 0, 0)]);
 
   // gets the new data for the party with the provided index and updates the partyData state
   function handlePartyData(index) {
