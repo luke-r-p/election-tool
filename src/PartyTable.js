@@ -33,26 +33,30 @@ export function PartyTable({data, handler}) {
   return (
     <div>
       <table>
-        <tr>
-          <th>Colour</th>
-          <th>Position</th>
-          <th>Votes</th>
-          <th>Initial Seats</th>
-          <th>Final Seats</th>
-        </tr>
-        {[...Array(data.length)].map((_, i) =>
-            <PartyTableEntry data={data} handler={handler} index={i}/>
-          )}
-        <tr>
-          <td></td>
-          <td>Totals:</td>
-          <td>{totalV}</td>
-          <td>{totalIn}</td>
-          <td>{totalF}</td>
-          <td></td>
-          <td></td>
-          <td></td>
-        </tr>
+        <thead>
+          <tr>
+            <th>Colour</th>
+            <th>Position</th>
+            <th>Votes</th>
+            <th>Initial Seats</th>
+            <th>Final Seats</th>
+          </tr>
+        </thead>
+        <tbody>
+          {[...Array(data.length)].map((_, i) =>
+              <PartyTableEntry key={i} data={data} handler={handler} index={i}/>
+            )}
+          <tr>
+            <td></td>
+            <td>Totals:</td>
+            <td>{totalV}</td>
+            <td>{totalIn}</td>
+            <td>{totalF}</td>
+            <td></td>
+            <td></td>
+            <td></td>
+          </tr>
+        </tbody>
       </table>
       <button>Add Party</button>
     </div>
