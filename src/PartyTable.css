@@ -13,3 +13,39 @@ th, td {
   padding-left: 5px;
   padding-right: 5px;
 }
+
+button {
+  border-width: 1px;
+  border-style: solid;
+  border-radius: 2px;
+  border-color: black;
+}
+
+.upButton, .downButton, .deleteButton {
+  font-size: 18px;
+  line-height: 18px;
+}
+
+.upButton, .downButton {
+  background-color: #64cbff;
+}
+
+.upButton:hover, .downButton:hover {
+  background-color: #96dcff;
+}
+
+.deleteButton {
+  background-color: #fa6e6e;
+}
+
+.deleteButton:hover {
+  background-color: #ffa3a3;
+}
+
+#addParty {
+  background-color: #73e473;
+}
+
+#addParty:hover {
+  background-color: #baffba;
+}

@@ -58,7 +58,7 @@ export function PartyTable({data, handler}) {
           </tr>
         </tbody>
       </table>
-      <button>Add Party</button>
+      <button id='addParty'>Add Party</button>
     </div>
   )
 }
@@ -76,9 +76,9 @@ function PartyTableEntry({data, handler, index}) {
         <td><input type='number' id={'votes' + index} value={data[index].votes.toString()} min='0' onChange={() => handler(index)}/></td>
         <td><input type='number' id={'inseats' + index} value={data[index].inseats.toString()} min='0' onChange={() => handler(index)}/></td>
         <td id={'fseats' + index}>{data[index].fseats}</td>
-        <td><button>X</button></td>
-        <td><button>🡑</button></td>
-        <td><button>🡓</button></td>
+        <td><button className='deleteButton'>X</button></td>
+        <td><button className='upButton'>🡑</button></td>
+        <td><button className='downButton'>🡓</button></td>
       </tr>
   )
 }
