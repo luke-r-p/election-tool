@@ -3,7 +3,6 @@ import './PartyTable.css';
 
 /*
 TODO:
-- implement adding/deleting/moving rows
 - implement allocation
 */
 
@@ -26,7 +25,7 @@ export function getPartyData(index) {
 
 // returns the table containing all of the parties
 // the size of the table is based on the size of the data provided
-export function PartyTable({data, handler}) {
+export function PartyTable({data, handler, adder, changer}) {
   // gets the totals for the bottom of the table
   let [totalV, totalIn, totalF] = totals(data);
 
@@ -44,7 +43,7 @@ export function PartyTable({data, handler}) {
         </thead>
         <tbody>
           {[...Array(data.length)].map((_, i) =>
-              <PartyTableEntry key={i} data={data} handler={handler} index={i}/>
+              <PartyTableEntry key={i} data={data} handler={handler} changer={changer} index={i}/>
             )}
           <tr>
             <td></td>
@@ -58,13 +57,13 @@ export function PartyTable({data, handler}) {
           </tr>
         </tbody>
       </table>
-      <button id='addParty'>Add Party</button>
+      <button id='addParty' onClick={() => adder()}>Add Party</button>
     </div>
   )
 }
 
 // returns a row of the party table, corresponding to the given index
-function PartyTableEntry({data, handler, index}) {
+function PartyTableEntry({data, handler, changer, index}) {
   return (
     <tr>
         <td><input type='color' id={'colour' + index} value={data[index].colour} onChange={() => handler(index)}/></td>
@@ -76,9 +75,9 @@ function PartyTableEntry({data, handler, index}) {
         <td><input type='number' id={'votes' + index} value={data[index].votes.toString()} min='0' onChange={() => handler(index)}/></td>
         <td><input type='number' id={'inseats' + index} value={data[index].inseats.toString()} min='0' onChange={() => handler(index)}/></td>
         <td id={'fseats' + index}>{data[index].fseats}</td>
-        <td><button className='deleteButton'>X</button></td>
-        <td><button className='upButton'>🡑</button></td>
-        <td><button className='downButton'>🡓</button></td>
+        <td><button className='upButton' onClick={() => changer('up', index)}>🡑</button></td>
+        <td><button className='downButton' onClick={() => changer('down', index)}>🡓</button></td>
+        <td><button className='deleteButton' onClick={() => changer('delete', index)}>X</button></td>
       </tr>
   )
 }

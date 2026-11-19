@@ -34,13 +34,48 @@ function App() {
     }
   }
 
+  // adds a new party to the list of parties
+  function addParty() {
+    let newPartyData = partyData.slice();
+    newPartyData.push(new Party('#000000', 0, 0, 0, 0));
+    setPartyData(newPartyData);
+  }
+
+  // moves or deletes a party in the list, depending on the instruction given
+  function alterParty(instruction, index) {
+    let newPartyData = partyData.slice();
+
+    switch (instruction) {
+      // deletes the party at the given index
+      case 'delete':
+        newPartyData.splice(index, 1);
+        break;
+      // moves the party at the given index up the list (towards 0)
+      case 'up':
+        if (index != 0) {
+          newPartyData[index] = partyData[index-1];
+          newPartyData[index-1] = partyData[index];
+        }
+        break;
+      // moves the party at the given index down the list (towards the end)
+      case 'down':
+        if (index != partyData.length - 1) {
+          newPartyData[index] = partyData[index+1];
+          newPartyData[index+1] = partyData[index];
+        }
+        break;
+    }
+
+    setPartyData(newPartyData);
+  }
+
   return (
     <div className="App">
       <div className='groupInput'>
         <h3>Settings:</h3>
         <InputSettings handler={handleInputSettings}/>
         <h3>Parties:</h3>
-        <PartyTable data={partyData} handler={handlePartyData}/>
+        <PartyTable data={partyData} handler={handlePartyData} adder={addParty} changer={alterParty}/>
       </div>
       <div id='diagramDiv'></div>
     </div>
