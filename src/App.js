@@ -2,19 +2,12 @@ import { useState } from 'react';
 import './App.css';
 import {InputSettings, InputSettingsValues, updateInputSettings} from './InputSettings'
 import {PartyTable, Party, getPartyData} from './PartyTable'
+import {allocateSeats} from './allocationFunctions'
 
 // main function
 function App() {
   // contains data for the input settings
   const [inputSettingsValues, setInputSettingsValues] = useState(new InputSettingsValues(1, 0, 0, 0, false));
-
-  // updates the input settings
-  function handleInputSettings() {
-    let values = updateInputSettings();
-    if (values != null) {
-      setInputSettingsValues(values);
-    }
-  }
 
   // contains the data for all of the parties
   const [partyData, setPartyData] = useState([
@@ -24,12 +17,27 @@ function App() {
     new Party('#000000', 0, 0, 0, 0),
     new Party('#000000', 0, 0, 0, 0)]);
 
+  // updates the input settings and updates seat counts
+  function handleInputSettings() {
+    let values = updateInputSettings();
+    if (values != null) {
+      setInputSettingsValues(values);
+
+      // updates seat allocation in case allocation method has changed
+      let newPartyData = partyData.slice();
+      newPartyData = allocateSeats(newPartyData, values.allocation);
+      setPartyData(newPartyData);
+    }
+  }
+
   // gets the new data for the party with the provided index and updates the partyData state
   function handlePartyData(index) {
     let values = getPartyData(index);
     if (values != null) {
       let newPartyData = partyData.slice();
       newPartyData[index] = values;
+      // updates seat allocation using new values
+      newPartyData = allocateSeats(newPartyData, inputSettingsValues.allocation);
       setPartyData(newPartyData);
     }
   }

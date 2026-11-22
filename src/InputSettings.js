@@ -30,6 +30,9 @@ export function InputSettings({handler}) {
   )
 }
 
+export const allocMethods = ['dhondt',
+                            'sainte-lague'];
+
 // function to read the settings and return the data structure
 export function updateInputSettings() {
   try {
